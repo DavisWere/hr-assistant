@@ -1,0 +1,1 @@
+web: gunicorn --workers 5 --timeout 2000 hr_assistant.wsgi
