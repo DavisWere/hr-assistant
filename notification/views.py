@@ -194,7 +194,7 @@ def mistral_chat_view(request):
         if "policy"or "policies" in prompt.lower():
             reply += f"\n\n📄 You can download the full company policy here: {pdf_link}"
 
-        # Save chat to DB
+       
         chat_record = ChatMessage.objects.create(
             user=user,
             conversation=[{"user": prompt}, {"mistral": reply}],
