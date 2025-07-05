@@ -62,6 +62,7 @@ CSP_DEFAULT_SRC = ("'self'",)
 
 """# Allow embedding in iframes from these specific origins"""
 CSP_FRAME_ANCESTORS = ("'self'", 'https://smartinvoice.co.ke',
+                       ' https://habi.up.railway.app',
                        'https://hr-assistant-production.up.railway.app',)
 
 #comment
@@ -74,6 +75,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5174',
      'http://localhost:5176',
     'https://hr-assistant-production.up.railway.app'
+    'https://habi.up.railway.app',
  
 ]
 
@@ -92,7 +94,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
     'http://localhost:5176',
     'http://localhost:5174',
-    'https://hr-assistant-production.up.railway.app'
+    'https://hr-assistant-production.up.railway.app',
+    'https://habi.up.railway.app'
 
 ]
 
