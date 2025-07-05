@@ -49,8 +49,50 @@ INSTALLED_APPS = [
     'drf_standardized_errors',
     'drf_yasg',
     'whitenoise',
+    'notification'
 
 ]
+
+X_FRAME_OPTIONS = 'ALLOWALL'
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+"""# Content Security Policy settings"""
+CSP_DEFAULT_SRC = ("'self'",)
+
+"""# Allow embedding in iframes from these specific origins"""
+CSP_FRAME_ANCESTORS = ("'self'", 'https://smartinvoice.co.ke',
+                       'https://hr-assistant-production.up.railway.app',)
+
+
+CORS_ALLOW_ALL_HEADERS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://hr-assistant-production.up.railway.app'
+ 
+]
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'https://hr-assistant-production.up.railway.app'
+
+]
+
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
