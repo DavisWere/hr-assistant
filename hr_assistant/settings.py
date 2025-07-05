@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -64,6 +65,42 @@ REST_FRAMEWORK = {
 
 }
 DRF_STANDARDIZED_ERRORS = {"ENABLE_IN_DEBUG_FOR_UNHANDLED_EXCEPTIONS": False}
+
+"""# swagger settings"""
+
+DEFAULT_API_URL = os.getenv('DEFAULT_API_URL')
+
+SWAGGER_SETTINGS = {
+    'DEFAULT_API_URL': os.getenv('DEFAULT_API_URL'),
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
+
+"""# JWT settings"""
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=4 ),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=14),
+
+}
+
+
+"""spectacular settings:"""
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': ' SmartInvoice API',
+    'DESCRIPTION': 'Django REST framework for API integration',
+    'VERSION': '3.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    
+}
+
+
 
 
 MIDDLEWARE = [
