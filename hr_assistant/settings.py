@@ -111,10 +111,10 @@ DRF_STANDARDIZED_ERRORS = {"ENABLE_IN_DEBUG_FOR_UNHANDLED_EXCEPTIONS": False}
 
 """# swagger settings"""
 
-DEFAULT_API_URL = os.getenv('DEFAULT_API_URL')
+DEFAULT_URL = os.getenv('DEFAULT_URL')
 
 SWAGGER_SETTINGS = {
-    'DEFAULT_API_URL': os.getenv('DEFAULT_API_URL'),
+    'DEFAULT_API_URL': os.getenv('DEFAULT_URL'),
     'SECURITY_DEFINITIONS': {
         'Bearer': {
             'type': 'apiKey',
