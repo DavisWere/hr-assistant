@@ -24,7 +24,7 @@ from django.conf.urls.static import static
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="SmartInvoice API",
+        title="Hr Assistant API",
         default_version='v1',
         description="Django REST framework for API integration",
         terms_of_service="https://www.google.com/policies/terms/",
