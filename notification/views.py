@@ -26,8 +26,8 @@ class MistralChatView(APIView):
     model = "mistral-small-latest"
     last_request_time = None
 
-    def call_mistral_api(self, message, pdf_link=None): 
-        # Add extra context if user is asking about policies
+    def call_mistral_api(self, message, user, pdf_link=None, history_limit=5):
+        # Prepare system context
         if "policy" in message.lower():
             system_message = (
                 f"You are an HR assistant for Workwise. Refer to the following company policy summary to help users:\n"
@@ -36,21 +36,33 @@ class MistralChatView(APIView):
             )
         else:
             system_message = (
-                "You are an HR assistant From WorkWise organization. Only respond to HR-related queries such as workplace issues, company policies, "
+               "You are an HR assistant From WorkWise organization. Only respond to HR-related queries such as workplace issues, company policies, "
                 "stress, and career development. Politely decline unrelated topics. and stick to WorkWise only  "
             )
 
+        # 🧠 Get last N messages by user (latest first, then reverse)
+        history_records = ChatMessage.objects.filter(user=user).order_by('-updated_at')[:history_limit]
+        history_messages = []
+
+        for record in reversed(history_records):
+            for entry in record.conversation:
+                if 'user' in entry:
+                    history_messages.append({"role": "user", "content": entry["user"]})
+                if 'mistral' in entry:
+                    history_messages.append({"role": "assistant", "content": entry["mistral"]})
+
+        # 👇 Now append current user message
+        history_messages.insert(0, {"role": "system", "content": system_message})
+        history_messages.append({"role": "user", "content": message})
+
+        # Prepare payload
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json"
         }
-
         data = {
             "model": self.model,
-            "messages": [
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": message}
-            ]
+            "messages": history_messages
         }
 
         try:
@@ -65,14 +77,12 @@ class MistralChatView(APIView):
             if response.status_code == 429:
                 retry_after = int(response.headers.get('Retry-After', 5))
                 time.sleep(retry_after)
-                return self.call_mistral_api(message, pdf_link)
+                return self.call_mistral_api(message, user, pdf_link, history_limit)
 
             response.raise_for_status()
-
             response_data = response.json()
             reply = response_data["choices"][0]["message"]["content"]
 
-            # ✅ Append download link if user asked for policy
             if "policy" in message.lower() and pdf_link:
                 reply += f"\n\n📄 You can download the full company policy here: {pdf_link}"
 
@@ -97,11 +107,8 @@ class MistralChatView(APIView):
         if not prompt:
             return Response({'error': 'Prompt is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # ✅ Generate PDF link from request
         pdf_link = request.build_absolute_uri("/static/Workwise_Company_Policy.pdf")
-
-        # ✅ Pass link into the API call
-        answer = self.call_mistral_api(prompt, pdf_link=pdf_link)
+        answer = self.call_mistral_api(prompt, user=user, pdf_link=pdf_link)
 
         chat_record = ChatMessage.objects.create(
             user=user,
@@ -113,6 +120,7 @@ class MistralChatView(APIView):
             "chat_id": chat_record.id,
             "response": answer
         }, status=status.HTTP_200_OK)
+
 
 class ChatHistoryViewSet(viewsets.ModelViewSet):
     permission_classes =[permissions.IsAuthenticated]
