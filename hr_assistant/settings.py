@@ -64,6 +64,7 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_FRAME_ANCESTORS = ("'self'", 'https://smartinvoice.co.ke',
                        'https://hr-assistant-production.up.railway.app',)
 
+#comment
 
 CORS_ALLOW_ALL_HEADERS = True
 CORS_ALLOW_ALL_ORIGINS = False
