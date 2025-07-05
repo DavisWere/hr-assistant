@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI HR Assistant</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-robot logo-icon"></i>
+                    <h1>AI HR Assistant</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div class="user-profile">
+                        <span>Welcome, {{ user.first_name|default:"User" }}</span>
+                        <div class="avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="quick-actions">
+                    <h3>Quick Help</h3>
+                    <div class="action-buttons">
+                        <button class="action-btn" data-topic="company-policies">
+                            <i class="fas fa-book"></i>
+                            Company Policies
+                        </button>
+                        <button class="action-btn" data-topic="conflict-resolution">
+                            <i class="fas fa-handshake"></i>
+                            Conflict Resolution
+                        </button>
+                        <button class="action-btn" data-topic="stress-management">
+                            <i class="fas fa-heart"></i>
+                            Stress Management
+                        </button>
+                        <button class="action-btn" data-topic="career-growth">
+                            <i class="fas fa-chart-line"></i>
+                            Career Growth
+                        </button>
+                    </div>
+                </div>
+
+                <div class="recent-conversations">
+                    <h3>Recent Conversations</h3>
+                    <div class="conversation-list">
+                        <div class="conversation-item">
+                            <i class="fas fa-comment"></i>
+                            <span>Leave Policy Question</span>
+                        </div>
+                        <div class="conversation-item">
+                            <i class="fas fa-comment"></i>
+                            <span>Performance Review</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Chat Container -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="assistant-info">
+                        <div class="assistant-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="assistant-details">
+                            <h3>AI HR Assistant</h3>
+                            <span class="status online">Online</span>
+                        </div>
+                    </div>
+                    <div class="chat-actions">
+                        <button class="btn-icon" title="Clear Chat">
+                            <i class="fas fa-broom"></i>
+                        </button>
+                        <button class="btn-icon" title="Export Chat">
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Hi! I'm your AI HR Assistant. How can I help you today? You can ask me about company
+                                policies, career growth, or other HR topics.</p>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="input-wrapper">
+                        <input type="text" id="messageInput" placeholder="Type your message..." maxlength="500">
+                        <button class="voice-btn" id="voiceBtn" title="Voice Input">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="send-btn" id="sendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="input-actions">
+                        <button class="escalate-btn" id="escalateBtn">
+                            <i class="fas fa-user-tie"></i>
+                            Request Human HR Help
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="escalationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Request Human HR Help</h3>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Your issue will be forwarded to our HR team. Please provide additional details:</p>
+                <textarea placeholder="Describe your issue..." rows="4"></textarea>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="cancelEscalation">Cancel</button>
+                    <button class="btn-primary" id="confirmEscalation">Send Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+
+</html>

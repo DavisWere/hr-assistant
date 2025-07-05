@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Habi</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Left Section with Illustration -->
+            <div class="illustration-section">
+                <div class="logo">
+                    <h1>Ha<span class="highlight">bi</span></h1>
+                </div>
+                <p class="tagline">Your AI-powered HR Assistant providing personalized guidance on work-related issues,
+                    career development, and company policies 24/7</p>
+            </div>
+
+            <!-- Right Section with Login Form -->
+            <div class="login-section">
+                <h2 class="login-title">Welcome Back!</h2>
+                <p class="login-subtitle">Sign in to access the AI HR Assistant</p>
+
+                <!-- Django Messages for Errors -->
+                {% if messages %}
+                {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+
+                <form method="post" class="login-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Email Address</label>
+                        <div class="input-group">
+                            <input type="test" name="username" id="username" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" id="password" placeholder="Enter your password"
+                                required>
+                        </div>
+                    </div>
+                    <button type="submit" class="login-button">Login</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/login_signup.js' %}"></script>
+</body>
+
+</html>

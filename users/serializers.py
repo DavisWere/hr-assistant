@@ -28,6 +28,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             "first_name": self.user.first_name,
             "last_name": self.user.last_name,
             "is_superuser": self.user.is_superuser,
+            'role':self.user.role
         }
 
         data.update({"user": user_data})
