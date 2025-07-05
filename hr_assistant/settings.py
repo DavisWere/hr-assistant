@@ -135,7 +135,7 @@ SIMPLE_JWT = {
 """spectacular settings:"""
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': ' SmartInvoice API',
+    'TITLE': ' Hr Assistant API',
     'DESCRIPTION': 'Django REST framework for API integration',
     'VERSION': '3.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
