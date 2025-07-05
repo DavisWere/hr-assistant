@@ -72,6 +72,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:5174',
+     'http://localhost:5176',
     'https://hr-assistant-production.up.railway.app'
  
 ]
@@ -89,6 +90,7 @@ CORS_ALLOW_METHODS = [
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:5173',
+    'http://localhost:5176',
     'http://localhost:5174',
     'https://hr-assistant-production.up.railway.app'
 
