@@ -67,7 +67,6 @@ CSP_FRAME_ANCESTORS = ("'self'", 'https://smartinvoice.co.ke',
 
 #comment
 
-CORS_ALLOW_ALL_HEADERS = True
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
