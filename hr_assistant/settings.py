@@ -67,15 +67,15 @@ CSP_FRAME_ANCESTORS = ("'self'", 'https://smartinvoice.co.ke',
 
 #comment
 
-CORS_ALLOW_ALL_HEADERS = True
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:5174',
      'http://localhost:5176',
-    'https://hr-assistant-production.up.railway.app'
+    'https://hr-assistant-production.up.railway.app',
     'https://habi.up.railway.app',
+    'https://hr-assistant-beta.netlify.app',
  
 ]
 
